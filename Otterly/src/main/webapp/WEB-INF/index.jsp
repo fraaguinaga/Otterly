@@ -6,19 +6,33 @@
 	<head>
 	<meta charset="ISO-8859-1">
 	<title>Otterly</title>
+	<link rel="stylesheet" href="<c:url value="/css/indexstyle.css" />">
 	</head>
 	
 	<body>
-		<p>${loginError}</p>
-		<form action="/login" method="POST">
-			<label for="email">Email</label>
-			<input type="email" name="email"/>
-			
-			<label for="pword">Password</label>
-			<input type="password" name="pword"/>
-			
-			<input type="submit" value="Log In"/>
-		</form>
-		<button><a href="/register">Sign Up</a></button>
+		<div class="bg">
+			<div class="split">
+				<form action="/login" method="POST">
+					<div>
+						<p class="login"><label for="email">Email</label></p>
+						<p class="login"><label for="pword">Password</label></p>
+					</div>
+					<div>
+						<input type="email" name="email"/>
+						<input type="password" name="pword"/>
+						<p id="error">${loginError}</p>
+					</div>
+					<button id="login-btn">Log In</button>
+				</form>
+				<form class="mid" action="/register">
+					<p id="join">Join Otterly Today!</p>
+					<button id="signup-btn">Sign Up!</button>
+				</form>
+				<p class="mid" id="slogan">See your interests Stay in the know Speak your mind</p>
+			</div>
+			<div class="split">
+				<img class="home-img" src="<c:url value="/images/otters-home.jpg"/>">	
+			</div>
+		</div>		
 	</body>
 </html>

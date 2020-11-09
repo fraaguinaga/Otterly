@@ -1,5 +1,7 @@
 package com.franka.otterly.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -9,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -72,6 +75,60 @@ public class UserController {
 		User user = uSer.getById(userId);
 		model.addAttribute("user", user);
 		return "home.jsp";
+	}
+	
+	@PostMapping("/home")
+	public String searchUsers(HttpSession session, Model model, @RequestParam("searchstr") String search) {
+		Long userId = (Long)session.getAttribute("user_id");
+		//Verify there is a user in session
+		if(userId == null)
+			return "redirect:/";
+		List<User> users = uSer.usernamesContaining(search);
+		model.addAttribute("searched", search);
+		model.addAttribute("user", this.uSer.getById(userId));
+		model.addAttribute("results", users);
+		return "search.jsp";
+	}
+	
+	@GetMapping("/_{username}")
+	public String userProfile(@PathVariable("username") String username, Model model, HttpSession session) {
+		Long userId = (Long)session.getAttribute("user_id");
+		//Verify there is a user in session
+		if(userId == null)
+			return "redirect:/";
+		
+		User user = this.uSer.getByUsername(username);
+		model.addAttribute("profileUser", user);
+		model.addAttribute("user", this.uSer.getById(userId));
+		
+		return "profile.jsp";
+	}
+	
+	@PostMapping("/_{username}/f")
+	public String follow(@PathVariable("username") String username, HttpSession session) {
+		Long userId = (Long)session.getAttribute("user_id");
+		//Verify there is a user in session
+		if(userId == null)
+			return "redirect:/";
+		
+		User user = this.uSer.getById(userId);
+		User otherUser = this.uSer.getByUsername(username);
+		this.uSer.followOtherUser(user, otherUser);
+		
+		return "redirect:/_" +username;
+	}
+	
+	@PostMapping("/_{username}/uf")
+	public String unfollow(@PathVariable("username") String username, HttpSession session) {
+		Long userId = (Long)session.getAttribute("user_id");
+		if(userId == null)
+			return "redirect:/";
+		
+		User user = this.uSer.getById(userId);
+		User otherUser = this.uSer.getByUsername(username);
+		this.uSer.unfollowOtherUser(user, otherUser);
+		
+		return "redirect:/_" +username;
 	}
 	
 	@GetMapping("/logout")

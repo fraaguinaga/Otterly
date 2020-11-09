@@ -26,15 +26,16 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank
+	@NotBlank(message="Cannot be blank!")
 	@Size(max=20)
 	private String username;
 	@Size(max=20)
+	@NotBlank(message="Cannot be blank!")
 	private String name;
 	@Email
 	@NotBlank
 	private String email;
-	@NotBlank
+	@NotBlank(message="Cannot be blank!")
 	private String password;
 	@Transient
 	private String confirmPw;
@@ -106,6 +107,22 @@ public class User {
 
 	public void setConfirmPw(String confirmPw) {
 		this.confirmPw = confirmPw;
+	}
+
+	public List<User> getFollowing() {
+		return following;
+	}
+
+	public void setFollowing(List<User> following) {
+		this.following = following;
+	}
+
+	public List<User> getFollowers() {
+		return followers;
+	}
+
+	public void setFollowers(List<User> followers) {
+		this.followers = followers;
 	}
 
 	public Date getCreatedAt() {
