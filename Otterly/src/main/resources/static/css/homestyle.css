@@ -1,0 +1,127 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+.container{
+	background-color: #f5ffff;
+	height: 100vh;
+}
+
+.hozline{
+	width: 90vw;
+	height: 4px;
+	border-bottom: solid 2px #2832c2; 
+	margin-top: 1%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+.head{
+	height: 11vh;
+	background-color: #e8ffff;
+}
+
+.user-pic {
+	height: 8vh;
+	width: 8vh;
+	display: inline-block;
+	vertical-align: middle;
+	border-radius: 50%;
+	margin-left: 1%;
+	
+}
+
+.user-info{
+	display: inline-block;
+	width: 10vw;
+	vertical-align: middle;
+	
+}
+
+.name{
+	font-weight: bold;
+	font-size: 1.1em;
+	color: #0492C2;
+}
+
+.username{
+	font-style: italic;
+	font-size: .8em;
+	color: #63C5DA; 
+}
+
+form{
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#search{
+	width: 70%;
+}
+
+#searchbar{
+	margin-left: 20%;
+	width: 40%;
+	height: 30px;
+	vertical-align: middle;
+	text-align: center;
+	border-radius: 15px;
+	border-color: #59bfff;
+}
+
+#searchbtn{
+	width: 10%;
+	height: 30px;
+	border-radius: 15px;
+	border-color: transparent;
+	border-color: #26abff;
+	background-color: #59bfff;
+}
+
+#logout-btn{
+	width: 120%;
+	height: 25px;
+	border-radius: 15px;
+	margin-left: 150%;
+	border-color: #d9f1ff;
+	background-color: #a8afff;
+}
+
+.col{
+	display: inline-block;
+}
+
+.sides{
+	width: 15vw;
+	height: 40vh;
+	vertical-align: top;
+	
+}
+
+.left{
+	border-right: solid 2px #2832c2;
+}
+
+.right{
+	border-left: solid 2px #2832c2;
+}
+
+.mid{
+	width: 69vw;
+	color: blue;
+}
+
+.menu{
+	display:block;
+	background-color: transparent;
+	border-width: 0px;
+	font-size: 1em;
+	font-weight: bold;
+	color: #0492C2;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10%;
+}
