@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>      
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 	<head>
-	<meta charset="ISO-8859-1">
-	<title>Otterly</title>
-	<link rel="stylesheet" href="<c:url value="/css/homestyle.css"/>">
+		<meta charset="ISO-8859-1">
+		<title>Create Post</title>
+		<link rel="stylesheet" href="<c:url value="/css/homestyle.css"/>">
 	</head>
 	
 	<body>
@@ -39,33 +40,24 @@
 			
 			<div class="col mid">
 				<table class="center">
-					<c:forEach items="${posts}" var="post">
-						<tr>
-							<td class="result-bar">
-								<img class="user-pic" src="/images/otters-home.jpg">
-									<div class="user-info">
-										<p class="name"><a href="/_${post.getUser().username}">${post.getUser().name}</a></p>
-										<p class="username">@${post.user.username}</p>
-									</div>
-									<p class="postcont">${post.content}</p>
-									<p class="postcont date">${post.formattedCreatedAt()}</p>
-									<form action="/repost/${post.id}">
-										<button>Repost</button>
-									</form>
-									<form action="/like/${post.id}">	
-										<button>Like</button>
-									</form>
-							</td>
-						</tr>
-					</c:forEach>
+					<tr>
+						<td class="result-bar post">
+							<form:form action="/create" method="POST" modelAttribute="post">
+								<form:hidden path="user" value="${user.id}"></form:hidden>
+								<div class="formgrp">
+									<p><form:errors path="content"/></p>
+									<div class="name"><form:label path="content">What's on your mind?</form:label></div>
+									<form:textarea class="txtarea" path="content" />
+								</div>
+								<button class="profile-btn post-btn">POST</button>
+							</form:form>
+						</td>
+					</tr>
 				</table>
 			</div>
 			
 			<div class="col sides right">
-				<form class="menu" action="/create">
-					<button class="menu">Create Post</button>
-				</form>
 			</div>
-		</div>	
+		</div>
 	</body>
 </html>

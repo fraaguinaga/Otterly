@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.franka.otterly.models.Post;
 import com.franka.otterly.models.User;
+import com.franka.otterly.services.PostService;
 import com.franka.otterly.services.UserService;
 import com.franka.otterly.validations.UserValidator;
 
@@ -24,6 +26,8 @@ import com.franka.otterly.validations.UserValidator;
 public class UserController {
 	@Autowired
 	private UserService uSer;
+	@Autowired
+	private PostService pSer;
 	@Autowired
 	private UserValidator uVal;
 	
@@ -73,7 +77,14 @@ public class UserController {
 			return "redirect:/";
 		
 		User user = uSer.getById(userId);
+		List<Post> posts = user.getPosts();
+		List<User> following = user.getFollowing();
+		for(User follow: following) {
+			posts.addAll(follow.getPosts());
+		}
+		System.out.println(posts);
 		model.addAttribute("user", user);
+		model.addAttribute("posts", posts);
 		return "home.jsp";
 	}
 	
@@ -104,6 +115,50 @@ public class UserController {
 		return "profile.jsp";
 	}
 	
+	@GetMapping("/_{username}/likes")
+	public String profileLikes(@PathVariable("username") String username, Model model, HttpSession session) {
+		Long userId = (Long)session.getAttribute("user_id");
+		//Verify there is a user in session
+		if(userId == null)
+			return "redirect:/";
+		
+		User user = this.uSer.getByUsername(username);
+		model.addAttribute("profileUser", user);
+		model.addAttribute("user", this.uSer.getById(userId));
+		
+		return "profilelikes.jsp";
+	}
+	
+	@GetMapping("/_{username}/edit")
+	public String editUser(@PathVariable("username") String username, Model model, HttpSession session) {
+		Long userId = (Long)session.getAttribute("user_id");
+		//Verify there is a user in session
+		if(userId == null)
+			return "redirect:/";
+		User user = uSer.getById(userId);
+		User profileUser = uSer.getByUsername(username);
+		if(profileUser == null || user == null || !user.equals(profileUser)) {
+			return "redirect:/";
+		}
+		
+		model.addAttribute("user", profileUser);
+		return "edit.jsp";
+	}
+	
+	@PostMapping("/_{username}/edit")
+	public String updateUser(@PathVariable("username") String username, @Valid @ModelAttribute("user") User user, BindingResult result, HttpSession session) {
+		Long userId = (Long)session.getAttribute("user_id");
+		//Verify there is a user in session
+		if(userId == null)
+			return "redirect:/";
+		if(result.hasErrors()) {
+			return "edit.jsp";
+		}
+		
+		uSer.updateUser(user);
+		return "redirect:/_" +username;
+	}
+	
 	@PostMapping("/_{username}/f")
 	public String follow(@PathVariable("username") String username, HttpSession session) {
 		Long userId = (Long)session.getAttribute("user_id");
@@ -129,7 +184,7 @@ public class UserController {
 		this.uSer.unfollowOtherUser(user, otherUser);
 		
 		return "redirect:/_" +username;
-	}
+	}	
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {

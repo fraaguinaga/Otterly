@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -32,6 +33,8 @@ public class User {
 	@Size(max=20)
 	@NotBlank(message="Cannot be blank!")
 	private String name;
+	@Size(max=100)
+	private String bio;
 	@Email
 	@NotBlank
 	private String email;
@@ -53,6 +56,8 @@ public class User {
 		inverseJoinColumns = @JoinColumn(name = "followers_id")
 	)
 	private List<User> followers;
+	@OneToMany(mappedBy="user",fetch=FetchType.LAZY)
+	private List<Post> posts;
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
@@ -108,6 +113,14 @@ public class User {
 	public void setConfirmPw(String confirmPw) {
 		this.confirmPw = confirmPw;
 	}
+	
+	public String getBio() {
+		return bio;
+	}
+	
+	public void setBio(String bio) {
+		this.bio = bio;
+	}
 
 	public List<User> getFollowing() {
 		return following;
@@ -123,6 +136,14 @@ public class User {
 
 	public void setFollowers(List<User> followers) {
 		this.followers = followers;
+	}
+	
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 
 	public Date getCreatedAt() {

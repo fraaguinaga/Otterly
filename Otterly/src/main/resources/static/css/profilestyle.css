@@ -1,0 +1,28 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+.container{
+	background-color: #f5ffff;
+	height: 100vh;
+}
+
+#banner{
+	height: 10vh;
+	width: 100vw;
+}
+
+.head{
+	height: 11vh;
+	background-color: #e8ffff;
+}
+
+.user-pic {
+	height: 8vh;
+	width: 8vh;
+	display: inline-block;
+	vertical-align: middle;
+	border-radius: 50%;
+	margin-left: 1%;
+}

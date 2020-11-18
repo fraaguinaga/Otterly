@@ -9,6 +9,11 @@
 	height: 100vh;
 }
 
+#banner{
+	height: 10vh;
+	width: 100vw;
+}
+
 .hozline{
 	width: 90vw;
 	height: 4px;
@@ -31,14 +36,18 @@
 	vertical-align: middle;
 	border-radius: 50%;
 	margin-left: 1%;
-	
 }
 
 .user-info{
 	display: inline-block;
-	width: 10vw;
 	vertical-align: middle;
 	
+}
+
+.postcont{
+	color:black;
+	margin-left: 1vw;
+	margin-bottom: 1vh;
 }
 
 .name{
@@ -51,6 +60,12 @@
 	font-style: italic;
 	font-size: .8em;
 	color: #63C5DA; 
+}
+
+.bio{
+	font-style: italic;
+	color: #0442C2;
+	margin-left: 5vw;
 }
 
 form{
@@ -76,7 +91,6 @@ form{
 	width: 10%;
 	height: 30px;
 	border-radius: 15px;
-	border-color: transparent;
 	border-color: #26abff;
 	background-color: #59bfff;
 }
@@ -88,6 +102,41 @@ form{
 	margin-left: 150%;
 	border-color: #d9f1ff;
 	background-color: #a8afff;
+}
+
+.profile-btn-edit{
+	margin-left: 60vw;
+}
+
+.profile-btn-right{
+	margin-left: 50vw;
+}
+
+.profile-btn{
+	width: 10vw;
+	height: 25px;
+	border-radius: 15px;
+	border-color: transparent;
+	background-color: #e2efff;
+}
+
+.post-btn{
+	float: right;
+	
+}
+
+.search-btn{
+	float: right;
+	margin-top: 1vh;
+	margin-right: 1vw;
+}
+
+
+.result-bar{
+	background-color: white;
+	border: solid 3px #a2efff;
+	border-radius: 15px;
+	width: 50vw;
 }
 
 .col{
@@ -110,12 +159,17 @@ form{
 }
 
 .mid{
-	width: 69vw;
+	width: 68vw;
 	color: blue;
 }
 
+.center{
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .menu{
-	display:block;
+	display: block;
 	background-color: transparent;
 	border-width: 0px;
 	font-size: 1em;
@@ -124,4 +178,20 @@ form{
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 10%;
+}
+
+.formgrp{
+	margin-left: 3vw;
+}
+
+.txtarea{
+	border: none;
+	width: 40vw;
+	height: 10vh;
+}
+
+.date{
+	font-size: .7em;
+	color: #0442C2;
+	display: inline-block;
 }
